@@ -63,11 +63,11 @@ class PdfInterpreter
 
         //check file path for log files
         $file_path = $this->check_file_path($log_folder, true);
-        if (array_keys($file_path)[0] === 'error' && $temp_folder === "/../logs/") {
+        if (array_keys($file_path)[0] === 'error' && $log_folder === "/../logs/") {
             mkdir(__DIR__ . '/../logs');
-            $this->temp_folder = __DIR__ . '/../logs';
+            $this->log_folder = __DIR__ . '/../logs';
         }
-        elseif (array_keys($file_path)[0] === 'error' && $temp_folder !== "/../logs/") {
+        elseif (array_keys($file_path)[0] === 'error' && $log_folder !== "/../logs/") {
             echo "Error: " . $file_path['error'];
             exit();
         } else {
