@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+namespace PdfInterpreter;
+
 use Symfony\Component\Process\Process as Process;
 
 class PdfInterpreter
