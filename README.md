@@ -9,9 +9,9 @@ The class uses user-defined templates containing regular expressions to control 
 
 This README is divided into several sections:
 * [Installation](#installation)
-  * [Homebrew packages](#homebrew-packages)
+  * [Console Applications](#console-applications)
   * [Automated installation](#automated-installation)
-  * [Manual installation](#manual-installation)
+  * [Manual installation with homebrew](#manual-installation-with-homebrew)
   * [Tesseract Language Files ](#tesseract-language-files)
 * [Usage](#usage)
   * [Create Object](#create-object)
@@ -39,14 +39,14 @@ Add the following code to your `composer.json`:
 }
 ```
 
-### Homebrew packages
-To use this class, you'll need to install the following Homebrew packages:
+### Console Applications
+To use this class, you'll need to install the following applications:
 
 1. **Poppler** (necessary to convert pdf to text and get information about number of pages in file)
 2. **Tesseract** (necessary to read and interpret png file)
 3. **ImageMagick** (necessary to convert pdf->png)
 
-Make sure `homebrew` is installed. 
+Make sure you have a package-manager installed on your system. 
 
 ### Automated installation
 Run the following code from the source folder to autoinstall all dependencies and tesseract language files:
@@ -54,7 +54,7 @@ Run the following code from the source folder to autoinstall all dependencies an
 php install/install_dependencies.php
 ```
 
-### Manual installation of homebrew packages
+### Manual installation with homebrew
 If homebrew is installed run the following commands to install the Homebrew packages:
 ```sh
 brew install poppler tesseract imagemagick
