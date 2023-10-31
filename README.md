@@ -77,7 +77,7 @@ tesseract --list-langs
 <?php
 require_once '../vendor/autoload.php';
 
-use PdfInterpreter;
+use PdfInterpreter\PdfInterpreter;
 
 //get path from terminal: 'echo $PATH'
 $path_env = "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin:/opt/homebrew/bin";
@@ -91,7 +91,7 @@ Using the `get_sample_output`-Method will allow you to get a sample of a text ou
 <?php
 require_once '../vendor/autoload.php';
 
-use PdfInterpreter;
+use PdfInterpreter\PdfInterpreter;
 
 //get path from terminal: 'echo $PATH'
 $path_env = "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin:/opt/homebrew/bin";
@@ -109,7 +109,7 @@ For more informations about the demanded parameters read the DocBloc of the meth
 <?php
 require_once '../vendor/autoload.php';
 
-use PdfInterpreter;
+use PdfInterpreter\PdfInterpreter;
 
 //get path from terminal: 'echo $PATH'
 $path_env = "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin:/opt/homebrew/bin";
