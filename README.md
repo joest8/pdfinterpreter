@@ -26,7 +26,7 @@ This README is divided into several sections:
 ## Installation
 Run to download the repository:
 ```sh
-composer require joest8/pdf-interpreter
+composer require joest8/pdfinterpreter
 ```
 
 ### Homebrew packages
