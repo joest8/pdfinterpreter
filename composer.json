@@ -1,4 +1,7 @@
 {
+  "name": "joest8/pdfinterpreter",
+  "description": "This class is designed to convert multiple PDF files, whether image-based or text-based, into an array of data.\nThe class uses user-defined templates containing regular expressions to control the data extraction process, allowing for customized and flexible output.",
+  "license": "MIT",
   "require": {
     "php": "^8.2",
     "symfony/process": "^6.3"
