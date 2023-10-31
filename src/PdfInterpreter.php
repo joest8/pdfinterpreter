@@ -43,18 +43,18 @@ class PdfInterpreter
      * @param string $log_folder folder path to save log-file
      *
      */
-    public function __construct(string $path_env, string $temp_folder = "/../logs/", string $log_folder="/../tmp/")
+    public function __construct(string $path_env, string $temp_folder = "/../tmp/", string $log_folder="/../logs/")
     {
         //set global variables
         $this->path_env = $path_env;
 
         //check file path for temp files
         $file_path = $this->check_file_path($temp_folder, true);
-        if (array_keys($file_path)[0] === 'error' && $temp_folder === "/../logs/") {
-            mkdir(__DIR__ . '/../logs');
-            $this->temp_folder = __DIR__ . '/../logs';
+        if (array_keys($file_path)[0] === 'error' && $temp_folder === "/../tmp/") {
+            mkdir(__DIR__ . '/../tmp');
+            $this->temp_folder = __DIR__ . '/../tmp';
         }
-        elseif (array_keys($file_path)[0] === 'error' && $temp_folder !== "/../logs/") {
+        elseif (array_keys($file_path)[0] === 'error' && $temp_folder !== "/../tmp/") {
             echo "Error: " . $file_path['error'];
             exit();
         } else {
@@ -63,11 +63,11 @@ class PdfInterpreter
 
         //check file path for log files
         $file_path = $this->check_file_path($log_folder, true);
-        if (array_keys($file_path)[0] === 'error' && $temp_folder === "/../tmp/") {
-            mkdir(__DIR__ . '/../tmp');
-            $this->temp_folder = __DIR__ . '/../tmp';
+        if (array_keys($file_path)[0] === 'error' && $temp_folder === "/../logs/") {
+            mkdir(__DIR__ . '/../logs');
+            $this->temp_folder = __DIR__ . '/../logs';
         }
-        elseif (array_keys($file_path)[0] === 'error' && $temp_folder !== "/../tmp/") {
+        elseif (array_keys($file_path)[0] === 'error' && $temp_folder !== "/../logs/") {
             echo "Error: " . $file_path['error'];
             exit();
         } else {
