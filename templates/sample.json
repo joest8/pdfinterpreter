@@ -1,0 +1,34 @@
+{
+    "title": "Sample",
+    "regex": "\/[Cc]ompany[\\W]?[Aa][Bb][Cc]\/",
+    "language": "eng",
+    "page_detection": "1",
+    "pattern": [
+        {
+            "title": "invoice_no",
+            "regex": "\/INVOICE # *([\\d]*)\/",
+            "page_detection": "1",
+            "multi_matches": false,
+            "capture_assignment": null
+        },
+        {
+            "title": "date",
+            "regex": "\/INVOICE DATE *([\\d]{2}.[\\d]{2}.[\\d]{4})\/",
+            "page_detection": "1",
+            "multi_matches": false,
+            "capture_assignment": null
+        },
+        {
+            "title": "positions",
+            "regex": "\/([\\d]{1,4}) *(.*?) *([\\d]{1,8},[\\d]{2}) *([\\d]{1,8},[\\d]{2})\/m",
+            "page_detection": "a",
+            "multi_matches": true,
+            "capture_assignment": [
+                "pieces",
+                "item",
+                "price",
+                "amount"
+            ]
+        }
+    ]
+}

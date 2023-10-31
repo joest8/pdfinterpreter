@@ -1,0 +1,11 @@
+{
+  "require": {
+    "php": "^8.2",
+    "symfony/process": "^6.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "PdfInterpreter\\": "src/"
+    }
+  }
+}

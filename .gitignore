@@ -1,0 +1,19 @@
+# Composer
+composer.lock
+
+# IDE
+.idea
+.vscode
+
+# OS X
+**/.DS_Store
+
+# Folder
+/vendor/
+/logs/*
+/tmp/*
+/templates/*
+!/templates/sample.json
+/docs/*
+!/docs/sample-bill.pdf
+/test/
