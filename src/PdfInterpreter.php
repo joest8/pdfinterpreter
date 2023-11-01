@@ -11,8 +11,9 @@ class PdfInterpreter
     // MEMBER VARIABLES
     //------------------------------------------------------------------------------------------------------------------
     //paths
-    private string $temp_folder;  //folder with files to convert
-    private string $log_folder;  //folder with log-files
+    private string $temp_folder;  //absolute path to folder with files to convert
+    private string $log_folder;  //absolute path to folder with log-files
+    private string $template_folder;  //absolute path to folder with templates
     private string $path_env;  //system PATH environment (in terminal: 'echo $PATH')
 
     private string $syspath_pdfinfo;  //system-path to Popplers pdf-info
@@ -39,40 +40,54 @@ class PdfInterpreter
      * ReadInvoices
      *
      * @param string $path_env system PATH environment (get in terminal: 'echo $PATH')
-     * @param string $temp_folder (optional) relative path to save temporary files (f.e. image.png of TesseractOCR).
-     * @param string $log_folder folder path to save log-file
+     * @param null|string $template_folder absolute path to folder with templates. Default: /../templates;
+     * @param null|string $temp_folder absolute path to folder with temporary-files. Default: /../tmp;
+     * @param null|string $log_folder absolute path to folder with log-files. Default: /../logs;
      *
      */
-    public function __construct(string $path_env, string $temp_folder = "/../tmp/", string $log_folder="/../logs/")
+    public function __construct(string $path_env, string $template_folder = null, string $temp_folder = null, string $log_folder=null)
     {
         //set global variables
         $this->path_env = $path_env;
 
-        //check file path for temp files
-        $file_path = $this->check_file_path($temp_folder, true);
-        if (array_keys($file_path)[0] === 'error' && $temp_folder === "/../tmp/") {
-            mkdir(__DIR__ . '/../tmp');
-            $this->temp_folder = __DIR__ . '/../tmp';
-        }
-        elseif (array_keys($file_path)[0] === 'error' && $temp_folder !== "/../tmp/") {
-            echo "Error: " . $file_path['error'];
-            exit();
-        } else {
-            $this->temp_folder = $file_path['success'];
-        };
+        $paths = [
+            "templates" => $template_folder,
+            "temp" => $temp_folder,
+            "logs" => $log_folder
+        ];
 
-        //check file path for log files
-        $file_path = $this->check_file_path($log_folder, true);
-        if (array_keys($file_path)[0] === 'error' && $log_folder === "/../logs/") {
-            mkdir(__DIR__ . '/../logs');
-            $this->log_folder = __DIR__ . '/../logs';
+        $path_array = [];
+        foreach ($paths as $key => $path_n) {
+
+            //get path
+            $path = $path_n === null ? dirname(__FILE__, 2)."/".$key."/" : $path_n;
+
+            //see if path exists
+            $check_path = $this->check_file_path($path, false);
+
+            //create path if default doesn't exist
+            if (array_keys($check_path)[0] === 'error' && $path_n === null) {
+                mkdir($path);
+                $path_array[$key] = $path;
+            }
+
+            //exit if path is not default and doesn't exist
+            elseif (array_keys($check_path)[0] === 'error' && $path_n != null) {
+                echo "Error: " . $check_path['error'];
+                exit();
+            }
+
+            //if path is not default
+            else {
+                $path_array[$key] = $path;
+            }
         }
-        elseif (array_keys($file_path)[0] === 'error' && $log_folder !== "/../logs/") {
-            echo "Error: " . $file_path['error'];
-            exit();
-        } else {
-            $this->log_folder = $file_path['success'];
-        };
+
+        //set member variables
+        $this->template_folder = $path_array['templates'];
+        $this->temp_folder = $path_array['temp'];
+        $this->log_folder = $path_array['logs'];
+
 
         //set templates
         $this->set_templates();
@@ -99,7 +114,7 @@ class PdfInterpreter
             "language" => $language,
             "page_detection" => $page_detection
         ];
-        $file = dirname(__FILE__, 2)."/templates/".$id.".json";
+        $file = $this->template_folder.$id.".json";
         if (!file_exists($file) || $override_templates === true) {
             file_put_contents($file, json_encode($template,JSON_PRETTY_PRINT));
         }
@@ -126,7 +141,7 @@ class PdfInterpreter
     public function add_pattern_to_template(string $template_id, string $title, string $regex, string $page_detection = "a", bool $multi_matches = false, array $capture_assignment = null)
     {
 
-        $file = dirname(__FILE__, 2)."/templates/".$template_id.".json";
+        $file = $this->template_folder.$template_id.".json";
         if (!file_exists($file)) {
             return "Error: Template {$template_id} doesn't exist!";
         } else {
@@ -985,7 +1000,7 @@ class PdfInterpreter
      * @return array array with all templates from folder templates
      */
     private function set_templates(){
-        $folder = dirname(__FILE__, 2)."/templates";
+        $folder = $this->template_folder;
         $template_files = glob($folder . "/*.json");
 
         $templates = [];
