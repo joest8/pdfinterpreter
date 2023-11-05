@@ -24,19 +24,8 @@ This README is divided into several sections:
   * [Convert File](#convert-file)
 
 ## Installation
-Add the following code to your `composer.json`:
-```json
-{
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/joest8/pdfinterpreter"
-        }
-    ],
-    "require": {
-        "joest8/pdfinterpreter": "dev-main"
-    }
-}
+```sh
+composer require joest8/pdfinterpreter
 ```
 
 ### Console Applications
